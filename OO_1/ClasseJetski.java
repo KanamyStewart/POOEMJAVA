@@ -1,27 +1,6 @@
 public class ClasseJetski {
     public static void main(String[] args) {
         Jetski novoJetski = new Jetski();
-        novoJetski.capacidadeVeiculo = 3;
-        novoJetski.comprimento = 2.9;
-        novoJetski.largura = 1.3;
-        novoJetski.pesoSeco = 80;
-        novoJetski.capacidadeCombustivel = 80;
-        novoJetski.cascoMaterial = "fibra";
-        novoJetski.tipoDoMotor = "Traseiro";
-        novoJetski.gasolinaRecomendada = "Aditivada";
-        novoJetski.potencia = 300;
-        novoJetski.cilindrada = 1630;
-        novoJetski.profundimetro = false;
-        novoJetski.assentoBiPartido = true;
-        novoJetski.assentoErgolock = true;
-        novoJetski.controleDePartida = true;
-        novoJetski.chaveCodificada = true;
-        novoJetski.compartimentoParaCelulares = true;
-        novoJetski.sistemaDeAudio = false;
-        novoJetski.espelhoRetrovisores = true;
-        novoJetski.portaUsb = false;
-        novoJetski.displayDigital = true;
-        novoJetski.colunaDeDirecaoAjustavel = true;
         
         System.out.println(novoJetski.capacidadeVeiculo + ": Pessoas");
         System.out.println(novoJetski.comprimento + ": Metros de comprimento");
