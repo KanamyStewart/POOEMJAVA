@@ -1,15 +1,15 @@
 public class Bandeira {
     String corPrincipal;
     String descricaoElementos;
-    AtributosCidade atributosCidade;
+    Cidade cidade;
     
     public Bandeira(
         String corPrincipal,
         String descricaoElementos,
-        AtributosCidade atributosCidade
+        Cidade cidade
     ){
         this.corPrincipal = corPrincipal;
         this.descricaoElementos = descricaoElementos;
-        this.atributosCidade = atributosCidade;
+        this.cidade = cidade;
     }
 }

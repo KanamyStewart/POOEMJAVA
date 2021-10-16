@@ -3,12 +3,13 @@ import javax.xml.crypto.Data;
 public class Pessoa {
     String nome;
     String cpf;
-    Data data;
+    String data;
+    Cidade cidade;
 
     public Pessoa(
         String nome,
         String cpf,
-        Data data
+        String data
     ){
         this.nome = nome;
         this.cpf = cpf;
