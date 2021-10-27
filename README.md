@@ -4,6 +4,7 @@ Aulas de Programação orientada a objetos utilizando JAVA, faculdades Senac - J
 # Organização
 Os Arquivos estão organizados por aula.
  - OO = Orientação a Objetos
+ - aval = avaliações
 
 # Faculdades Senac - Joinville
 
