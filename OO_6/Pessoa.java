@@ -1,33 +1,74 @@
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class Pessoa {
     private String nome;
     private String cpf;
-    private String dtNascimento;
-    ArrayList<Paciente> paciente = new ArrayList<>();
-    ArrayList<Medico> medico = new ArrayList<>();
+    private String dataDeNascimento;
+    // private Cidade cidade;
 
-    private void setNome(String nome){
+    protected Pessoa(
+        String nome,
+        String cpf,
+        String dataDeNascimento
+    ) {
         this.nome = nome;
-    }
-
-    private void setCpf(String cpf){
         this.cpf = cpf;
+        this.dataDeNascimento = dataDeNascimento;
     }
 
-    private void setDtNascimento(String dtNascimento){
-        this.dtNascimento = dtNascimento;
-    }
-
-    private String getNome(){
+    protected String getNome() {
         return this.nome;
     }
 
-    private String getCpf(){
+    protected void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    protected String getCpf() {
         return this.cpf;
     }
 
-    private String getDtNascimento(){
-        return this.dtNascimento;
+    protected void setCpf(String cpf) {
+        this.cpf = cpf;
     }
+
+    protected String getDataDeNascimento() {
+        return this.dataDeNascimento;
+    }
+
+    protected void setDataDeNascimento(String dataDeNascimento) {
+        this.dataDeNascimento = dataDeNascimento;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Pessoa)) {
+            return false;
+        }
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(cpf, pessoa.cpf);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, cpf, dataDeNascimento);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " nome='" + getNome() + "'" +
+            ", cpf='" + getCpf() + "'" +
+            ", dataDeNascimento='" + getDataDeNascimento() + "'" +
+            "}";
+    }
+
+    public String carteira() {
+        return "Nome: " + this.getNome()
+            + "\nC.P.F.: " + this.getCpf()
+            + "\nData de Nasc.: " + this.getDataDeNascimento();
+    }
+
 }
