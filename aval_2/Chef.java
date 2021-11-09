@@ -1,25 +1,46 @@
 import java.util.ArrayList;
 
-public class Chef {
-    int id;
-    String nome;
-    String cpf;
-    String dataNascimento;
-    ArrayList<Receita> receitas = new ArrayList<>();
+public class Chef extends Pessoa {
+    private String especialidae;
+    private ArrayList<Receita> receitas = new ArrayList<>();
 
-    public Chef(
-        int id,
-        String nome,
-        String cpf,
-        String dataNascimento
-    ){
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.dataNascimento = dataNascimento;
+    protected Chef(
+        String nome, 
+        String cpf, 
+        String dataDeNascimento,
+        String especialidade
+        ) {
+        super(nome, cpf, dataDeNascimento);
+        this.especialidae = especialidade;
     }
 
-    public void adicionarReceita(Receita receita){
+    public void setEspecialidade(String especialidade){
+        this.especialidae = especialidade;
+    }
+
+    public String getEspecialidade(){
+        return this.especialidae;
+    }
+
+    public void setReceita(Receita receita){
         this.receitas.add(receita);
     }
+
+    public ArrayList<Receita> getReceitas(){
+        return this.receitas;
+    }
+
+    @Override
+    public String carteira(){
+        String ret = super.carteira()
+        + "\n Especialidade: " + this.getEspecialidade()
+        + "\n Quantidade de receitas: " + this.receitas.size();
+
+        for (Receita receita : this.receitas){
+            ret += "\n " + receita.getNome();
+        };
+
+        return ret;
+    }
+
 }

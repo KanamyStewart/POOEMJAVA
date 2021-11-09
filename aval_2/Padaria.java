@@ -1,37 +1,41 @@
 import java.util.ArrayList;
 
-public class Padaria {
-    int id;
-    String nome;
-    String dataAbertura;
-    Endereco endereco;
-    ArrayList<Receita> receitas = new ArrayList<>();
+public class Padaria extends Estabelecimentos {
+
+    private String horaFuncinamento;
+    private ArrayList<Receita> receitas = new ArrayList<>();
 
     public Padaria(
-        int id,
+        int id, 
+        int numero, 
+        String cep, 
+        String rua, 
+        String bairro, 
+        String cidade, 
+        int idEstabelecimento,
+        String tipo,
+        String horaFuncinamento,
         String nome,
-        String dataAbertura,
-        int idEnd,
-        int numero,
-        String cep,
-        String rua,
-        String bairro,
-        String cidade
-    ){
-        this.id = id;
-        this.nome = nome;
-        this.dataAbertura = dataAbertura;
-        this.endereco = new Endereco(
-            id, 
-            numero, 
-            cep, 
-            rua, 
-            bairro, 
-            cidade);
+        String dataAbertura
+        ) {
+        super(id, numero, cep, rua, bairro, cidade, idEstabelecimento, nome, dataAbertura);
+        this.horaFuncinamento = horaFuncinamento;
     }
 
-    public void adicionarReceita(Receita receita){
+    public void setNome(String horaFuncinamento){
+        this.horaFuncinamento = horaFuncinamento;
+    }
+
+    public String getNome(){
+        return this.horaFuncinamento;
+    }
+
+    public void setReceita(Receita receita){
         this.receitas.add(receita);
     }
-    
+
+    public ArrayList<Receita> getReceitas(){
+        return this.receitas;
+    }
+
 }
