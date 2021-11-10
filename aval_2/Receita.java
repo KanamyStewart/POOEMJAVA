@@ -1,29 +1,28 @@
 import java.util.ArrayList;
 
-public class Receita extends Chef {
+public class Receita {
     private int id;
     private String nomeReceita;
     private String numEtapas;
     private Double valor;
+    private Chef chef;
     private ArrayList<Mercado> mercados = new ArrayList<>();
     private ArrayList<Padaria> padarias = new ArrayList<>();
     private ArrayList<Cliente> clientes = new ArrayList<>();
 
     protected Receita(
-        String nome, 
-        String cpf, 
-        String dataDeNascimento, 
-        String especialidade,
         int id,
         String nomeReceita,
         String numEtapas,
-        Double valor
+        Double valor,
+        Chef chef
         ) {
-        super(nome, cpf, dataDeNascimento, especialidade);
         this.id = id;
         this.nomeReceita = nomeReceita;
         this.numEtapas = numEtapas;
         this.valor = valor;
+
+        chef.setChef(this);
     }
 
     public void setId(int id){
@@ -58,11 +57,11 @@ public class Receita extends Chef {
         return this.valor;
     }
     
-    public void setChef(Mercado mercado){
+    public void setMercado(Mercado mercado){
         this.mercados.add(mercado);
     }
     
-    public ArrayList<Mercado> getChefs(){
+    public ArrayList<Mercado> getMercado(){
         return this.mercados;
     }
 
@@ -80,5 +79,19 @@ public class Receita extends Chef {
     
     public ArrayList<Cliente> getClientes(){
         return this.clientes;
+    }
+
+    public void setChef(Chef chef){
+        this.chef = chef;
+    }
+
+    public Chef getChef(){
+        return this.chef;
+    }
+
+    public String dadosReceita(){
+        return "Chef: " + this.getChef().getNome()
+        + ", Receita: " + this.getNomeReceita()
+        + ", Valor: " + this.getValor();
     }
 }

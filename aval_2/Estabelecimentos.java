@@ -1,23 +1,35 @@
-public class Estabelecimentos extends Endereco {
+public class Estabelecimentos {
     private int idEstabelecimento;
     private String nome;
     private String dataAbertura;
+    private Endereco endereco;
 
     public Estabelecimentos(
-    int id, 
-    int numero, 
-    String cep, 
-    String rua, 
-    String bairro, 
-    String cidade,
     int idEstabelecimento,
     String nome,
-    String dataAbertura
+    String dataAbertura,
+    int id,
+    int numero,
+    String cep,
+    String rua,
+    String bairro,
+    String cidade
+
     ) {
-        super(id, numero, cep, rua, bairro, cidade);
         this.idEstabelecimento = idEstabelecimento;
         this.nome = nome;
         this.dataAbertura = dataAbertura;
+        this.endereco = new Endereco(
+            id,
+            numero,
+            cep,
+            rua,
+            bairro,
+            cidade
+        );
+
+        endereco.setEndeco(this);
+
     }
 
     public void setIdEstabelecimento(int idEstabelecimento){
@@ -32,6 +44,9 @@ public class Estabelecimentos extends Endereco {
         this.dataAbertura = dataAbertura;
     }
 
+    public void setEndereco(Endereco endereco){
+        this.endereco = endereco;
+    }
 
     public int getIdEstabelecimento(){
         return this.idEstabelecimento;
@@ -43,5 +58,9 @@ public class Estabelecimentos extends Endereco {
     
     public String getDataAbertura(){
         return this.dataAbertura;
+    }
+
+    public Endereco getEndereco(){
+        return this.endereco;
     }
 }

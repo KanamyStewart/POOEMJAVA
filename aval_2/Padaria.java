@@ -4,22 +4,28 @@ public class Padaria extends Estabelecimentos {
 
     private String horaFuncinamento;
     private ArrayList<Receita> receitas = new ArrayList<>();
+    private Endereco endereco;
 
     public Padaria(
-        int id, 
-        int numero, 
-        String cep, 
-        String rua, 
-        String bairro, 
-        String cidade, 
         int idEstabelecimento,
-        String tipo,
         String horaFuncinamento,
         String nome,
-        String dataAbertura
+        String dataAbertura,
+        int id,
+        int numero,
+        String cep,
+        String rua,
+        String bairro,
+        String cidade
         ) {
-        super(id, numero, cep, rua, bairro, cidade, idEstabelecimento, nome, dataAbertura);
+        super(idEstabelecimento, nome, dataAbertura, id,
+        numero,
+        cep,
+        rua,
+        bairro,
+        cidade);
         this.horaFuncinamento = horaFuncinamento;
+
     }
 
     public void setNome(String horaFuncinamento){
@@ -37,5 +43,14 @@ public class Padaria extends Estabelecimentos {
     public ArrayList<Receita> getReceitas(){
         return this.receitas;
     }
+
+    public void setEndereco(Endereco endereco){
+        this.endereco = endereco;
+    }
+
+    public Endereco getEndereco(){
+        return this.endereco;
+    }
+
 
 }

@@ -30,17 +30,20 @@ public class Chef extends Pessoa {
         return this.receitas;
     }
 
-    @Override
+    
     public String carteira(){
         String ret = super.carteira()
-        + "\n Especialidade: " + this.getEspecialidade()
-        + "\n Quantidade de receitas: " + this.receitas.size();
+        + "\nEspecialidade: " + this.getEspecialidade()
+        + "\nQuantidade de receitas: " + this.receitas.size();
 
         for (Receita receita : this.receitas){
-            ret += "\n " + receita.getNome();
+            ret += "\n " + receita.dadosReceita();
         };
 
         return ret;
+    }
+
+    public void setChef(Receita receita) {
     }
 
 }

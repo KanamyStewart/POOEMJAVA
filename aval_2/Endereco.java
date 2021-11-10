@@ -1,10 +1,13 @@
+import java.util.ArrayList;
+
 public class Endereco {
-    int id;
-    int numero;
-    String cep;
-    String rua;
-    String bairro;
-    String cidade;
+    private int id;
+    private int numero;
+    private String cep;
+    private String rua;
+    private String bairro;
+    private String cidade;
+    private ArrayList<Estabelecimentos> estabelecimentos = new ArrayList<>();
 
     public Endereco(
         int id,
@@ -69,5 +72,12 @@ public class Endereco {
     public String getCidade(){
         return this.cidade;
     }
+    
+    public void setEndeco(Estabelecimentos estabelecimentos){
+        this.estabelecimentos.add(estabelecimentos);
+    }
 
+    public ArrayList<Estabelecimentos> getEstabelecimentos(){
+        return this.estabelecimentos;
+    }
 }

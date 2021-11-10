@@ -4,21 +4,26 @@ public class Mercado extends Estabelecimentos{
 
     private String promocao;
     private ArrayList<Receita> receitas = new ArrayList<>();
+    private Endereco endereco;
 
     public Mercado(
-        int id, 
-        int numero, 
-        String cep, 
-        String rua, 
-        String bairro,
-        String cidade, 
         int idEstabelecimento,
-        String tipo,
         String promocao,
         String nome,
-        String dataAbertura
-        ) {
-        super(id, numero, cep, rua, bairro, cidade, idEstabelecimento, nome, dataAbertura);
+        String dataAbertura,
+        int id,
+        int numero,
+        String cep,
+        String rua,
+        String bairro,
+        String cidade
+    ) {
+        super(idEstabelecimento, nome, dataAbertura, id,
+        numero,
+        cep,
+        rua,
+        bairro,
+        cidade);
         this.promocao = promocao;
     }
 
@@ -38,4 +43,11 @@ public class Mercado extends Estabelecimentos{
         return this.receitas;
     }
     
+    public void setEndereco(Endereco endereco){
+        this.endereco = endereco;
+    }
+
+    public Endereco getEndereco(){
+        return this.endereco;
+    }
 }
