@@ -51,8 +51,8 @@ public class Chef extends Pessoa {
             return false;
         }
         Chef chef = (Chef) o;
-        return this.getCpf() == this.getCpf()
-            && this.getReceitas() == this.getReceitas()
+        return this.getCpf() == chef.getCpf()
+            && this.getReceitas() == chef.getReceitas()
             && this.getNome() == chef.getNome();
     }
 
