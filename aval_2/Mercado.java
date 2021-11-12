@@ -4,7 +4,6 @@ public class Mercado extends Estabelecimentos{
 
     private String promocao;
     private ArrayList<Receita> receitas = new ArrayList<>();
-    private Endereco endereco;
 
     public Mercado(
         int idEstabelecimento,
@@ -43,11 +42,21 @@ public class Mercado extends Estabelecimentos{
         return this.receitas;
     }
     
-    public void setEndereco(Endereco endereco){
-        this.endereco = endereco;
+    public String dadosMercado(){
+        return "Nome mercado: " + super.getNome()
+        + ", Quantidade de receitas Receitas : " + this.getReceitas().size();
     }
 
-    public Endereco getEndereco(){
-        return this.endereco;
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Mercado)) {
+            return false;
+        }
+        Mercado mercado = (Mercado) o;
+        return this.getEndereco().getRua() == mercado.getEndereco().getRua()
+            && this.getEndereco().getNumero() == mercado.getEndereco().getNumero()
+            && this.getNome() == mercado.getNome();
     }
 }

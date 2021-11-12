@@ -43,7 +43,17 @@ public class Chef extends Pessoa {
         return ret;
     }
 
-    public void setChef(Receita receita) {
+    @Override
+    public boolean equals(Object o){
+        if (o == this)
+            return true;
+        if (!(o instanceof Chef)){
+            return false;
+        }
+        Chef chef = (Chef) o;
+        return this.getCpf() == this.getCpf()
+            && this.getReceitas() == this.getReceitas()
+            && this.getNome() == chef.getNome();
     }
 
 }

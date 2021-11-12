@@ -4,7 +4,6 @@ public class Padaria extends Estabelecimentos {
 
     private String horaFuncinamento;
     private ArrayList<Receita> receitas = new ArrayList<>();
-    private Endereco endereco;
 
     public Padaria(
         int idEstabelecimento,
@@ -28,11 +27,11 @@ public class Padaria extends Estabelecimentos {
 
     }
 
-    public void setNome(String horaFuncinamento){
+    public void setHorarioFuncionamento(String horaFuncinamento){
         this.horaFuncinamento = horaFuncinamento;
     }
 
-    public String getNome(){
+    public String getHorarioFuncionamento(){
         return this.horaFuncinamento;
     }
 
@@ -44,13 +43,21 @@ public class Padaria extends Estabelecimentos {
         return this.receitas;
     }
 
-    public void setEndereco(Endereco endereco){
-        this.endereco = endereco;
+    public String dadosPadaria(){
+        return "Nome padaria: " + super.getNome()
+        + ", Quantidade de receitas Receitas : " + this.getReceitas().size();
     }
 
-    public Endereco getEndereco(){
-        return this.endereco;
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Padaria)) {
+            return false;
+        }
+        Padaria padaria = (Padaria) o;
+        return this.getEndereco().getRua() == padaria.getEndereco().getRua()
+            && this.getEndereco().getNumero() == padaria.getEndereco().getNumero()
+            && this.getNome() == padaria.getNome();
     }
-
-
 }

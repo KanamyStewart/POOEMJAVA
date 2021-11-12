@@ -5,6 +5,10 @@ public class Cidade {
         Chef chefOne = new Chef("Vitor Yuri Rezende", "692.544.186-09", "24/07/1990", "Churrasqueiro");
         Chef chefTwo = new Chef("Jorge Igor Nicolas Lopes", "713.479.523-30", "04/06/1984", "Cozinheiro");
         Chef chefTree = new Chef("Marlene Teresinha Gomes", "578.685.928-26", "16/04/1944", "Confeiteira");
+
+        Cliente clientOne = new Cliente("Stella Fernanda Débora Rocha", "169.634.454-94", "23/06/1979", "(43) 98448-8136");
+        Cliente clientTwo = new Cliente("Renan Pedro Henrique Lopes", "210.762.348-10", "11/08/1961", "(85) 98117-7170");
+        Cliente clientTree = new Cliente("Miguel Victor Carvalho", "549.165.172-96", "05/04/1968", "(47) 99667-2829");
         
         Receita receitaOne = new Receita(1, "Pão de alho", "1", 27.87, chefOne);
         Receita receitaTwo = new Receita(2, "Maminha na mostarda", "2", 87.65, chefOne);
@@ -32,6 +36,22 @@ public class Cidade {
         padariaOne.setReceita(receitaSeven);
 
         System.out.println(chefOne.carteira());
-        
+        System.out.println(chefTwo.carteira());
+        System.out.println(chefTree.carteira());
+
+        System.out.println(padariaOne.dadosPadaria());
+
+        System.out.println(mercadoOne.dadosMercado());
+
+        clientOne.setReceita(receitaFive);
+        clientOne.setReceita(receitaNine);
+        clientOne.setReceita(receitaSeven);
+        clientTwo.setReceita(receitaSix);
+        clientTwo.setReceita(receitaEight);
+        clientTree.setReceita(receitaFor);
+        clientTree.setReceita(receitaOne);
+        System.out.println(clientOne.carteira());
+        System.out.println(clientTree.carteira());
+        System.out.println(clientTwo.carteira());
     }
 }

@@ -63,4 +63,17 @@ public class Estabelecimentos {
     public Endereco getEndereco(){
         return this.endereco;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Estabelecimentos)) {
+            return false;
+        }
+        Estabelecimentos estabelecimentos = (Estabelecimentos) o;
+        return this.getIdEstabelecimento() == estabelecimentos.getIdEstabelecimento()
+            && this.getDataAbertura() == estabelecimentos.getDataAbertura()
+            && this.getNome() == estabelecimentos.getNome();
+    }
 }

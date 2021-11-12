@@ -21,8 +21,9 @@ public class Receita {
         this.nomeReceita = nomeReceita;
         this.numEtapas = numEtapas;
         this.valor = valor;
+        this.chef = chef;
 
-        chef.setChef(this);
+        chef.setReceita(this);
     }
 
     public void setId(int id){
@@ -75,6 +76,7 @@ public class Receita {
 
     public void setCliente(Cliente cliente){
         this.clientes.add(cliente);
+        cliente.setReceita(this);
     }
     
     public ArrayList<Cliente> getClientes(){
@@ -90,8 +92,20 @@ public class Receita {
     }
 
     public String dadosReceita(){
-        return "Chef: " + this.getChef().getNome()
-        + ", Receita: " + this.getNomeReceita()
+        return "Receita: " + this.getNomeReceita()
         + ", Valor: " + this.getValor();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Receita)){
+            return false;
+        }
+        Receita receita = (Receita) o;
+        return this.getChef().getCpf() == receita.getChef().getCpf()
+            && this.getChef().getNome() == receita.getChef().getCpf()
+            && this.getNomeReceita() == receita.getNomeReceita();
     }
 }
