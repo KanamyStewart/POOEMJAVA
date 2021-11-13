@@ -33,13 +33,9 @@ public class Cliente extends Pessoa {
     
     @Override
     public String carteira(){
-        String ret = super.carteira() 
-        + "\n Telefone: " + this.getTelefone();
-
-        for (Receita receita : this.receitas){
-            ret += "\n " + receita.getNomeReceita();
-        };
-
-        return ret;
+        return "\nNome cliente: " + this.getNome()
+            + "\nCPF: " + this.getCpf()
+            + "\nData Nascimneto: " + this.getDataDeNascimento()
+            + "\nTelefone: " + this.getTelefone();
     }
 }

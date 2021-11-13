@@ -1,5 +1,5 @@
 
-public class Pessoa {
+public abstract class Pessoa {
     private String nome;
     private String cpf;
     private String dataDeNascimento;
@@ -38,10 +38,6 @@ public class Pessoa {
         this.dataDeNascimento = dataDeNascimento;
     }
 
-    public String carteira() {
-        return "Nome: " + this.getNome()
-            + "\nC.P.F.: " + this.getCpf()
-            + "\nData de Nasc.: " + this.getDataDeNascimento();
-    }
+    public abstract String carteira();
 
 }

@@ -1,17 +1,20 @@
 import java.util.ArrayList;
 
-public class Chef extends Pessoa {
+public class Chef extends Pessoa implements CalculoSalario{
     private String especialidae;
+    private double salario;
     private ArrayList<Receita> receitas = new ArrayList<>();
 
     protected Chef(
         String nome, 
         String cpf, 
         String dataDeNascimento,
-        String especialidade
+        String especialidade,
+        double salario
         ) {
         super(nome, cpf, dataDeNascimento);
         this.especialidae = especialidade;
+        this.salario = salario;
     }
 
     public void setEspecialidade(String especialidade){
@@ -30,17 +33,12 @@ public class Chef extends Pessoa {
         return this.receitas;
     }
 
-    
-    public String carteira(){
-        String ret = super.carteira()
-        + "\nEspecialidade: " + this.getEspecialidade()
-        + "\nQuantidade de receitas: " + this.receitas.size();
+    public double getSalario(){
+        return this.salario;
+    }
 
-        for (Receita receita : this.receitas){
-            ret += "\n " + receita.dadosReceita();
-        };
-
-        return ret;
+    public void setSalario(double salario){
+        this.salario = salario;
     }
 
     @Override
@@ -54,6 +52,22 @@ public class Chef extends Pessoa {
         return this.getCpf() == chef.getCpf()
             && this.getReceitas() == chef.getReceitas()
             && this.getNome() == chef.getNome();
+    }
+
+    @Override
+    public String carteira() {
+        return "\nNome Chef: " + this.getNome() 
+            + "\nCPF: " + this.getCpf() 
+            + "\nData Nascimento: " + this.getDataDeNascimento()
+            + "\nEspecialidade: " + this.getEspecialidade()
+            + "\nSalario: " + this.getSalario()
+            + "\nMédia salario anual: " + this.Calculo();
+            
+    }
+
+    @Override
+    public double Calculo() {
+        return this.getSalario() * 12;
     }
 
 }

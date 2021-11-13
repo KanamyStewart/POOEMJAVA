@@ -1,4 +1,4 @@
-public class Estabelecimentos {
+public abstract class Estabelecimentos {
     private int idEstabelecimento;
     private String nome;
     private String dataAbertura;
