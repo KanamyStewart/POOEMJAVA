@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Chef extends Pessoa implements CalculoSalario{
     private String especialidae;
-    private double salario;
+    private String salario;
     private int id;
     private ArrayList<Receita> receitas = new ArrayList<>();
 
@@ -21,10 +21,21 @@ public class Chef extends Pessoa implements CalculoSalario{
         String cpf, 
         String dataDeNascimento,
         String especialidade,
-        double salario
+        String salario
         ) {
         super(nome, cpf, dataDeNascimento);
         this.id = id;
+        this.especialidae = especialidade;
+        this.salario = salario;
+    }
+    protected Chef(
+        String nome, 
+        String cpf, 
+        String dataDeNascimento,
+        String especialidade,
+        String salario
+        ) {
+        super(nome, cpf, dataDeNascimento);
         this.especialidae = especialidade;
         this.salario = salario;
     }
@@ -49,11 +60,11 @@ public class Chef extends Pessoa implements CalculoSalario{
         return this.receitas;
     }
 
-    public double getSalario(){
+    public String getSalario(){
         return this.salario;
     }
 
-    public void setSalario(double salario){
+    public void setSalario(String salario){
         this.salario = salario;
     }
 
@@ -72,18 +83,25 @@ public class Chef extends Pessoa implements CalculoSalario{
 
     @Override
     public String carteira() {
-        return "\nNome Chef: " + this.getNome() 
-            + "\nCPF: " + this.getCpf() 
-            + "\nData Nascimento: " + this.getDataDeNascimento()
-            + "\nEspecialidade: " + this.getEspecialidade()
-            + "\nSalario: " + this.getSalario()
-            + "\nMédia salario anual: " + this.Calculo();
+        return "Nome Chef: " + this.getNome() 
+            + "CPF: " + this.getCpf() 
+            + "Data Nascimento: " + this.getDataDeNascimento()
+            + "Especialidade: " + this.getEspecialidade()
+            + "Salario: " + this.getSalario()
+            + "Média salario anual: " + this.Calculo();
             
     }
 
     @Override
-    public double Calculo() {
-        return this.getSalario() * 12;
+    public String toString() {
+        return "{" +
+            " id do chefe: '" + getId() + "'" +
+            ", Nome: '" + getNome() + "'" +
+            ", CPF: '" + getCpf() + "'" +
+            ", Data de Nascimento: '" + getDataDeNascimento() + "'" +
+            ", Especialidade: '" + getEspecialidade() + "'" +
+            ", Salario: '" + getSalario() + "'" +
+            "}";
     }
 
     public static void printChef(
@@ -98,10 +116,9 @@ public class Chef extends Pessoa implements CalculoSalario{
         }
     }
 
-    public static Chef getChef() throws Exception {
+    public static Chef getChef(Scanner scanner) throws Exception {
         try {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Informe ID do Chef para exclusão: \n");
+            System.out.println("Informe ID do Chef: ");
             int id = scanner.nextInt();
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
@@ -110,21 +127,20 @@ public class Chef extends Pessoa implements CalculoSalario{
             if(!rs.next()) {
                 throw new Exception("Id invalido");
             }
-            scanner.close();
             return new Chef(
-                rs.getInt("id_chef"),
+                rs.getInt("id"),
                 rs.getString("nome"), 
                 rs.getString("cpf"), 
                 rs.getString("data_nasc"), 
                 rs.getString("especialidade"), 
-                rs.getDouble("salario")
+                rs.getString("salario")
             );
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }    
     }    
     
-    public static ArrayList<Chef> getChefs() throws Exception {
+    public static ArrayList<Chef> getChefs() throws Exception{
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
@@ -133,12 +149,12 @@ public class Chef extends Pessoa implements CalculoSalario{
             while (rs.next()) {
                 chefs.add(
                     new Chef(
-                        rs.getInt("id_chef"),
+                        rs.getInt("id"),
                         rs.getString("nome"), 
                         rs.getString("cpf"), 
                         rs.getString("data_nasc"), 
                         rs.getString("especialidade"), 
-                        rs.getDouble("salario")
+                        rs.getString("salario")
                     )
                 );
             }
@@ -147,28 +163,23 @@ public class Chef extends Pessoa implements CalculoSalario{
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-
     }
 
     
-    public static Chef getChefInsert() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Informe o nome do Chef: \n");
-        int id = scanner.nextInt();
-        System.out.println("Informe o nome do Chef: \n");
+    public static Chef getChefInsert(Scanner scanner) {
+        System.out.println("Informe o nome do Chef: ");
         String nome = scanner.next();
-        System.out.println("Informe o CPF do Chef: \n");
+        System.out.println("Informe o CPF do Chef: ");
         String cpf = scanner.next();
-        System.out.println("Informe a data de nascimento do Chef? \n");
+        System.out.println("Informe a data de nascimento do Chef: ");
         String dataDeNascimento = scanner.next();
-        System.out.println("Informe a especialidade do Chef: \n");
+        System.out.println("Informe a especialidade do Chef: ");
         String especialidade = scanner.next();
-        System.out.println("Informe o Salario do Chef: \n");
-        double salario = scanner.nextFloat();
-        scanner.close();
+        System.out.println("Informe o Salario do Chef: ");
+        String salario = scanner.next();
+        
 
         return new Chef(
-            id,
             nome,
             cpf,
             dataDeNascimento,
@@ -181,12 +192,9 @@ public class Chef extends Pessoa implements CalculoSalario{
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
-            boolean sql = stm.executeQuery("INSERT INTO chef"
+            stm.execute("INSERT INTO chef"
                 + "(nome, cpf, data_nasc, especialidade, salario) VALUES "
-                + "('"+chef.getNome()+"', '"+chef.getCpf()+"', '"+chef.getDataDeNascimento()+"', '"+chef.getEspecialidade()+"', '"+chef.getSalario()+"')") != null;
-            if(!sql) {
-                System.out.println("Falha!");
-            }
+                + "('"+chef.getNome()+"', '"+chef.getCpf()+"', '"+chef.getDataDeNascimento()+"', '"+chef.getEspecialidade()+"', '"+chef.getSalario()+"')");
             con.close();
             System.out.println("Registro Salvo!");
         } catch (Exception e) {
@@ -194,36 +202,35 @@ public class Chef extends Pessoa implements CalculoSalario{
         }
     }
 
-    public static Chef getChefUpdate() throws Exception {
+    public static Chef getChefUpdate(Scanner scanner) throws Exception {
         try {
-            Scanner scanner = new Scanner(System.in);
-            Chef chef = Chef.getChef();
-            System.out.println("Informe o nome do Chef (Deixar em branco para manter \n)");
+            Chef chef = Chef.getChef(scanner);
+            System.out.println("Informe o nome do Chef (Deixar em branco para manter)");
             String nome = scanner.next();
             if (nome.length() > 0){
                 chef.setNome(nome);
             }        
-            System.out.println("Informe o CPF do Chef (Deixar em branco para manter \n)");
+            System.out.println("Informe o CPF do Chef (Deixar em branco para manter)");
             String cpf = scanner.next();
             if (cpf.length() > 0l){
                 chef.setCpf(cpf);
             }        
-            System.out.println("Informe a data de nascimento do Chef (Deixar em branco para manter \n)");
+            System.out.println("Informe a data de nascimento do Chef (Deixar em branco para manter)");
             String dataDeNascimento = scanner.next();
             if (dataDeNascimento.length() > 0){
                 chef.setDataDeNascimento(dataDeNascimento);
             }        
-            System.out.println("Informe a especialidade do Chef (Deixar em branco para manter \n)");
+            System.out.println("Informe a especialidade do Chef (Deixar em branco para manter)");
             String especialidade = scanner.next();
             if (especialidade.length() > 0){
                 chef.setEspecialidade(especialidade);
             }        
-            System.out.println("Informe o salario do Chef (Deixar em branco para manter \n)");
-            double salario = scanner.nextFloat();
-            if (salario == 0){
+            System.out.println("Informe o salario do Chef (Deixar em branco para manter)");
+            String salario = scanner.next();
+            if (especialidade.length() > 0){
                 chef.setSalario(salario);
             }        
-            scanner.close();
+            
             return chef;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -234,16 +241,13 @@ public class Chef extends Pessoa implements CalculoSalario{
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
-            boolean sql = stm.execute("UPDATE chef SET "
+            stm.execute("UPDATE chef SET "
                 + " nome = '" + chef.getNome() + "'"
                 + ", cpf = '" + chef.getCpf() + "'"
                 + ", data_nasc = '" + chef.getDataDeNascimento() + "'"
                 + ", especialidade = '" + chef.getEspecialidade() + "'"
                 + ", salario = '" + chef.getSalario() + "'"
                 + " WHERE id = " + chef.getId());
-            if(!sql) {
-                System.out.println("Falhou!");
-            }
             con.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -254,14 +258,15 @@ public class Chef extends Pessoa implements CalculoSalario{
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
-            boolean sql = stm.execute("DELETE FROM chef"
-                + "WHERE id = " + chef.getId());
-            if(!sql) {
-                System.out.println("Falhou!");
-            }
+            stm.execute("DELETE FROM chef WHERE id = " + chef.getId());
             con.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    @Override
+    public double Calculo() {
+        
+        return 0;
     }
 }

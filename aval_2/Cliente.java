@@ -26,6 +26,16 @@ public class Cliente extends Pessoa {
         this.telefone = telefone;
     }
 
+    protected Cliente(
+        String nome, 
+        String cpf, 
+        String dataDeNascimento,
+        String telefone
+        ) {
+        super(nome, cpf, dataDeNascimento);
+        this.telefone = telefone;
+    }
+
     public int getId(){
         return this.id;
     }
@@ -47,11 +57,11 @@ public class Cliente extends Pessoa {
     }
     
     @Override
-    public String carteira(){
-        return "\nNome cliente: " + this.getNome()
-            + "\nCPF: " + this.getCpf()
-            + "\nData Nascimneto: " + this.getDataDeNascimento()
-            + "\nTelefone: " + this.getTelefone();
+    public String toString(){
+        return "Nome cliente: " + this.getNome()
+            + ", CPF: " + this.getCpf()
+            + ", Data Nascimneto: " + this.getDataDeNascimento()
+            + ", Telefone: " + this.getTelefone();
     }
 
     public static void printCliente(
@@ -66,10 +76,9 @@ public class Cliente extends Pessoa {
         }
     }
 
-    public static Cliente getCliente() throws Exception {
+    public static Cliente getCliente(Scanner scanner) throws Exception {
         try {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Informe ID do Cliente para exclusão: \n");
+            System.out.println("Informe ID do Cliente: ");
             int id = scanner.nextInt();
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
@@ -78,9 +87,9 @@ public class Cliente extends Pessoa {
             if(!rs.next()) {
                 throw new Exception("Id invalido");
             }
-            scanner.close();
+            
             return new Cliente(
-                rs.getInt("id_cliente"),
+                rs.getInt("id"),
                 rs.getString("nome"), 
                 rs.getString("cpf"), 
                 rs.getString("data_nasc"), 
@@ -100,7 +109,7 @@ public class Cliente extends Pessoa {
             while (rs.next()) {
                 clientes.add(
                     new Cliente(
-                        rs.getInt("id_cliente"),
+                        rs.getInt("id"),
                         rs.getString("nome"), 
                         rs.getString("cpf"), 
                         rs.getString("data_nasc"), 
@@ -117,22 +126,16 @@ public class Cliente extends Pessoa {
     }
 
     
-    public static Cliente getClienteInsert() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Informe o nome do Cliente: \n");
-        int id = scanner.nextInt();
-        System.out.println("Informe o nome do Cliente: \n");
+    public static Cliente getClienteInsert(Scanner scanner) {
+        System.out.println("Informe o nome do Cliente: ");
         String nome = scanner.next();
-        System.out.println("Informe o CPF do Cliente: \n");
+        System.out.println("Informe o CPF do Cliente: ");
         String cpf = scanner.next();
-        System.out.println("Informe a data de nascimento do Cliente? \n");
+        System.out.println("Informe a data de nascimento do Cliente ");
         String dataDeNascimento = scanner.next();
-        System.out.println("Informe o telefone do Cliente: \n");
+        System.out.println("Informe o telefone do Cliente: ");
         String telefone = scanner.next();
-        scanner.close();
-
         return new Cliente(
-            id,
             nome,
             cpf,
             dataDeNascimento,
@@ -145,12 +148,9 @@ public class Cliente extends Pessoa {
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
-            boolean sql = stm.executeQuery("INSERT INTO cliente"
-                + "(nome, cpf, data_nasc, especialidade, salario) VALUES "
-                + "('"+cliente.getNome()+"', '"+cliente.getCpf()+"', '"+cliente.getDataDeNascimento()+"', '"+cliente.getTelefone()+"')") != null;
-            if(!sql) {
-                System.out.println("Falha!");
-            }
+            stm.execute("INSERT INTO cliente"
+                + "(nome, cpf, data_nasc, telefone) VALUES "
+                + "('"+cliente.getNome()+"', '"+cliente.getCpf()+"', '"+cliente.getDataDeNascimento()+"', '"+cliente.getTelefone()+"')");
             con.close();
             System.out.println("Registro Salvo!");
         } catch (Exception e) {
@@ -158,31 +158,29 @@ public class Cliente extends Pessoa {
         }
     }
 
-    public static Cliente getClienteUpdate() throws Exception {
+    public static Cliente getClienteUpdate(Scanner scanner) throws Exception {
         try {
-            Scanner scanner = new Scanner(System.in);
-            Cliente cliente = Cliente.getCliente();
-            System.out.println("Informe o nome do Cliente (Deixar em branco para manter \n)");
+            Cliente cliente = Cliente.getCliente(scanner);
+            System.out.println("Informe o nome do Cliente (Deixar em branco para manter)");
             String nome = scanner.next();
-            if (nome == null){
+            if (nome.length() > 0){
                 cliente.setNome(nome);
             }        
-            System.out.println("Informe o CPF do Cliente (Deixar em branco para manter \n)");
+            System.out.println("Informe o CPF do Cliente (Deixar em branco para manter)");
             String cpf = scanner.next();
-            if (cpf == null){
+            if (cpf.length() > 0){
                 cliente.setCpf(cpf);
             }        
-            System.out.println("Informe a data de nascimento do Cliente (Deixar em branco para manter \n)");
+            System.out.println("Informe a data de nascimento do Cliente (Deixar em branco para manter)");
             String dataDeNascimento = scanner.next();
-            if (dataDeNascimento == null){
+            if (dataDeNascimento.length() > 0){
                 cliente.setDataDeNascimento(dataDeNascimento);
             }        
-            System.out.println("Informe o telefone do Cliente (Deixar em branco para manter \n)");
-            String especialidade = scanner.next();
-            if (especialidade == null){
+            System.out.println("Informe o telefone do Cliente (Deixar em branco para manter)");
+            String telefone = scanner.next();
+            if (telefone.length() > 0){
                 cliente.setTelefone(telefone);
-            }       
-            scanner.close();
+            }
             return cliente;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -193,15 +191,12 @@ public class Cliente extends Pessoa {
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
-            boolean sql = stm.execute("UPDATE cliente SET "
+            stm.execute("UPDATE cliente SET "
                 + " nome = '" + cliente.getNome() + "'"
                 + ", cpf = '" + cliente.getCpf() + "'"
                 + ", data_nasc = '" + cliente.getDataDeNascimento() + "'"
                 + ", telefone = '" + cliente.getTelefone() + "'"
                 + " WHERE id = " + cliente.getId());
-            if(!sql) {
-                System.out.println("Falhou!");
-            }
             con.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -212,14 +207,16 @@ public class Cliente extends Pessoa {
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             Statement stm = con.createStatement();
-            boolean sql = stm.execute("DELETE FROM cliente"
-                + "WHERE id = " + cliente.getId());
-            if(!sql) {
-                System.out.println("Falhou!");
-            }
+            stm.execute("DELETE FROM cliente WHERE id = " + cliente.getId());
             con.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public String carteira() {
+        
+        return null;
     }
 }

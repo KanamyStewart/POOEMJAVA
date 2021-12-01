@@ -68,7 +68,7 @@ public class Cidade {
                 case 2:
                     try {
                         Chef.insertChef(
-                            Chef.getChefInsert()
+                            Chef.getChefInsert(scanner)
                         );
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -77,7 +77,7 @@ public class Cidade {
                 case 3:
                     try {
                         Chef.updateChef(
-                            Chef.getChefUpdate()
+                            Chef.getChefUpdate(scanner)
                         );
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -86,7 +86,7 @@ public class Cidade {
                 case 4:
                     try {
                         Chef.deleteChef(
-                            Chef.getChef()
+                            Chef.getChef(scanner)
                         );
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -104,7 +104,7 @@ public class Cidade {
                 case 6:
                     try {
                         Cliente.insertCliente(
-                            Cliente.getClienteInsert()
+                            Cliente.getClienteInsert(scanner)
                         );
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -113,7 +113,7 @@ public class Cidade {
                 case 7:
                     try {
                         Cliente.updateCliente(
-                            Cliente.getClienteUpdate()
+                            Cliente.getClienteUpdate(scanner)
                         );
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -122,7 +122,7 @@ public class Cidade {
                 case 8:
                     try {
                         Cliente.deleteCliente(
-                            Cliente.getCliente()
+                            Cliente.getCliente(scanner)
                         );
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
