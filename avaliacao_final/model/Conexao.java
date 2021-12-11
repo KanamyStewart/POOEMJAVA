@@ -12,7 +12,7 @@ import java.util.Properties;
 public class Conexao {
     public static Connection getConnection() throws Exception {
         try {
-            Properties props = getProps();
+            getProps();
             final String url = "jdbc:mysql://localhost:3306/avaliacao_2";
             final String user = "root";
             final String password = "";
@@ -25,7 +25,7 @@ public class Conexao {
 
     private static Properties getProps() throws IOException {
         Properties props = new Properties();
-        String path = "/exercicios/bancodedados/conexao.properties";
+        String path = "/exercicios/bancodedados/avaliacao_2.properties";
         props.load(Conexao.class.getResourceAsStream(path));
         return props;
     }

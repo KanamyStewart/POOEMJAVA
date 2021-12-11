@@ -53,6 +53,6 @@ public class Zoologico extends JFrame {
     }
 
     public static void main(String[] args){
-        Zoologico janela = new Zoologico();
+        Zoologico zoologico = new Zoologico();
     }
 }

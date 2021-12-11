@@ -5,14 +5,14 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Listar extends JFrame {
+public class CadastrarJaula extends JFrame {
 
     JButton fechar;
     JTextArea textArea1 = new JTextArea(10,30);
 
-    public Listar() {
+    public CadastrarJaula() {
 
-        fechar = new JButton("Fechar");
+        fechar = new JButton("Ok");
         Container pane = this.getContentPane();
         pane.setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -32,7 +32,7 @@ public class Listar extends JFrame {
     public void buttonConfirmaActionPerformed(ActionEvent e){
         int ret = JOptionPane.showConfirmDialog(
             this, 
-            "Deseja Fechar?",
+            "Deseja cadastrar descrição?",
             "Fechar",
             JOptionPane.OK_CANCEL_OPTION,
             JOptionPane.QUESTION_MESSAGE

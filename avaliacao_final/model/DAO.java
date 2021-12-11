@@ -13,10 +13,8 @@ public class DAO {
             PreparedStatement statement = this.startConnection().prepareStatement(
                 sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
-            // Atribui os valores
             insertAtribs(statement, atribs);
 
-            // Verifica se o retorno é um valor criado
             if(statement.executeUpdate() > 0){
                 ResultSet resultado = statement.getGeneratedKeys();
 
